@@ -22,8 +22,8 @@ class App extends Component {
                             <li><Link to="/qrGenerator">Generate QR Code</Link></li>
                             <li><Link to="/qrReader">Read QR Code</Link></li>
                         </ul>
-                        <Route path="/public" component={Public}/>
                         <Route path="/login" component={withRouter(Login)}/>
+                        <Route path="/public" component={Public}/>
                         <ProtectedRoute path='/protected' component={Protected}/>
                         <ProtectedRoute path='/qrGenerator' component={QRGenerator}/>
                         <ProtectedRoute path='/qrReader' component={QRReader}/>

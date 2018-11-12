@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {Route, Redirect} from "react-router-dom";
-import fakeAuthCentralState from "../helpers/auth";
+import * as auth from "../helpers/auth";
+
 
 const ProtectedRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
-        fakeAuthCentralState.isAuthenticated === true ?
+        auth.isAuthenticated() === true ?
             <Component {...props} /> : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
     )}/>
 );

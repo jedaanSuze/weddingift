@@ -1,16 +1,29 @@
-let isAuthenticated = false;
+import firebase from 'firebase';
 
-function authenticate(callback) {
-    this.isAuthenticated = true;
-    setTimeout(callback, 300);
+let isAuthenticatedUser = false;
+
+function LogIn(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+            isAuthenticatedUser = true;
+            return true;
+        }, (error) => {
+            //    Alert.alert(error.message);
+        });
+    return false;
 }
 
-function signout(callback) {
-    this.isAuthenticated = false;
-    setTimeout(callback, 300);
+function SignOut() {
+    firebase.auth().signOut();
+}
+
+function IsAuthenticated() {
+    return isAuthenticatedUser;
 }
 
 module.exports = {
-    authenticate,
-    signout
+    LogIn,
+    IsAuthenticated,
+    SignOut
 };
+
