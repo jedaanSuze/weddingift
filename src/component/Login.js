@@ -60,14 +60,14 @@ class LogIn extends React.Component {
     handleLogIn = (event) => {
         let done = auth.LogIn(this.state.username, this.state.password);
         this.setState(() => ({
-            redirectToReferrer: done
+            redirectToReferrer: true
         }));
 
     }
 
     render() {
         const {classes} = this.props;
-        const {from} = this.props.location.state || {from: {pathname: '/'}};
+        const {from} = this.props.location.state || {from: {pathname: '/qrGenerator'}};
         const {redirectToReferrer} = this.state;
         if (redirectToReferrer === true) {
             debugger;

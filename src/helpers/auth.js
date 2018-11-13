@@ -29,7 +29,7 @@ function LogIn(email, password) {
             isAuthenticatedUser = true;
             return true;
         }, (error) => {
-                //Alert.alert(error.message);
+            //Alert.alert(error.message);
         });
     return false;
 }
@@ -39,6 +39,7 @@ function SignOut() {
 }
 
 function IsAuthenticated() {
+    console.log('isAuthenticatedUser', isAuthenticatedUser);
     return isAuthenticatedUser;
 }
 

@@ -8,10 +8,11 @@ const AuthButton = withRouter(({history}) => (
         <p>Welcome to this amazing content! <button onClick={() => {
             auth.SignOut(() => history.push('/'))
         }}>Sign out</button>
+            <Redirect to='/main-page'  />
         </p>
     ) : (
         <div>
-            return <Redirect to='/login'  />
+            <Redirect to='/login'  />
         </div>
     )
 ));
