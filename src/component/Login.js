@@ -12,6 +12,8 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import {Redirect} from "react-router-dom";
+import * as auth from "../helpers/auth";
 
 const styles = theme => ({
     main: {
@@ -45,45 +47,70 @@ const styles = theme => ({
     },
 });
 
-function LogIn(props) {
-    const { classes } = props;
+class LogIn extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            redirectToReferrer: false,
+            username: '',
+            password: ''
+        };
+    }
 
-    return (
-        <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
-                <form className={classes.form}>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input id="email" name="email" autoComplete="email" autoFocus />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input name="password" type="password" id="password" autoComplete="current-password" />
-                    </FormControl>
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
+    handleLogIn = (event) => {
+        let done = auth.LogIn(this.state.username, this.state.password);
+        this.setState(() => ({
+            redirectToReferrer: done
+        }));
+
+    }
+
+    render() {
+        const {classes} = this.props;
+        const {from} = this.props.location.state || {from: {pathname: '/'}};
+        const {redirectToReferrer} = this.state;
+        if (redirectToReferrer === true) {
+            debugger;
+            this.props.history.push(from.pathname);
+        }
+        return (
+            <main className={classes.main}>
+                <CssBaseline/>
+                <Paper className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockIcon/>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
                         Sign in
-                    </Button>
-                </form>
-            </Paper>
-        </main>
-    );
+                    </Typography>
+                    <form className={classes.form}>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="email">Email Address</InputLabel>
+                            <Input id="email" name="email" autoComplete="email" autoFocus/>
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input name="password" type="password" id="password" autoComplete="current-password"/>
+                        </FormControl>
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary"/>}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={() => this.handleLogIn()}
+                        >
+                            Sign in
+                        </Button>
+                    </form>
+                </Paper>
+            </main>
+        );
+    }
 }
 
 LogIn.propTypes = {
