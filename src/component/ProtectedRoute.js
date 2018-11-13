@@ -6,7 +6,7 @@ import * as auth from "../helpers/auth";
 
 const ProtectedRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={(props) => (
-        auth.isAuthenticated() === true ?
+        auth.IsAuthenticated() === true ?
             <Component {...props} /> : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
     )}/>
 );

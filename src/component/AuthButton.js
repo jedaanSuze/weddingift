@@ -4,9 +4,9 @@ import * as auth from "../helpers/auth";
 
 
 const AuthButton = withRouter(({history}) => (
-    auth.isAuthenticated() ? (
+    auth.IsAuthenticated() ? (
         <p>Welcome to this amazing content! <button onClick={() => {
-            auth.signOut(() => history.push('/'))
+            auth.SignOut(() => history.push('/'))
         }}>Sign out</button>
         </p>
     ) : (
