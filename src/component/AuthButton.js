@@ -1,19 +1,17 @@
 import React from 'react';
-import {Redirect,withRouter} from "react-router-dom";
-import * as auth from "../helpers/auth";
+import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom";
+import fakeAuthCentralState from "../helpers/auth";
 
 
-const AuthButton = withRouter(({history}) => (
-    auth.IsAuthenticated() ? (
+const AuthButton = withRouter(({ history }) => (
+    fakeAuthCentralState.isAuthenticated ? (
         <p>Welcome to this amazing content! <button onClick={() => {
-            auth.SignOut(() => history.push('/'))
+            fakeAuthCentralState.signout(() => history.push('/'))
         }}>Sign out</button>
-            <Redirect to='/main-page'  />
         </p>
     ) : (
-        <div>
-            <Redirect to='/login'  />
-        </div>
+        <p>You are not logged in.</p>
     )
 ));
 
